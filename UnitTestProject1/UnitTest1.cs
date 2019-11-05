@@ -544,7 +544,16 @@ namespace UnitTestProject1
           public static int TriangleHeight = 10;
           public static int TriangleWidth = 10;
      }
-     public class LeftTriangle
+
+     public interface ILeftTriangle
+     {
+          Coordinate GetBottomLeftOfTriangle(int rowNumber, int column);
+          Coordinate GetBottomRightOfTriangle(int rowNumber, int column);
+          Tuple<Coordinate, Coordinate, Coordinate> GetLeftTriangle(int numericalRow, int column);
+          Coordinate GetTopLeftOfTriangle(int numericalRow, int column);
+     }
+
+     public class LeftTriangle : ILeftTriangle
      {
           public Coordinate GetTopLeftOfTriangle(int numericalRow, int column)
           {
@@ -568,7 +577,7 @@ namespace UnitTestProject1
                return new Tuple<Coordinate, Coordinate, Coordinate>(topLeft, bottomRight, bottomLeft);
           }
 
-          public  Coordinate GetBottomLeftOfTriangle(int rowNumber, int column)
+          public Coordinate GetBottomLeftOfTriangle(int rowNumber, int column)
           {
                int x, y;
 
@@ -590,14 +599,22 @@ namespace UnitTestProject1
 
      }
 
-     public class RightTriangle
+     public interface IRightTriangle
+     {
+          Coordinate GetBottomRightOfTriangle(int numericalRow, int column);
+          Tuple<Coordinate, Coordinate, Coordinate> GetRightTriangle(int numericalRow, int column);
+          Coordinate GetTopLeftOfTriangle(int numericalRow, int column);
+          Coordinate GetTopRightOfTriangle(int numericalRow, int column);
+     }
+
+     public class RightTriangle : IRightTriangle
      {
           public Tuple<Coordinate, Coordinate, Coordinate> GetRightTriangle(int numericalRow, int column)
           {
                var topLeft = GetTopLeftOfTriangle(numericalRow, column);
                var topRight = GetTopRightOfTriangle(numericalRow, column);
                var bottomRight = GetBottomRightOfTriangle(numericalRow, column);
-               
+
 
                return new Tuple<Coordinate, Coordinate, Coordinate>(topLeft, topRight, bottomRight);
           }
@@ -618,7 +635,7 @@ namespace UnitTestProject1
                int x;
                int y;
 
-               x = (column / 2)  * 10;
+               x = (column / 2) * 10;
                y = (numericalRow - 1) * -10;
                return new Coordinate(x, y);
           }

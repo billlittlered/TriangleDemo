@@ -7,12 +7,12 @@ namespace UnitTestProject1
      [TestClass]
      public class UnitTests_LeftTriangle
      {
-          private LeftTriangle _grid;
+          private IGrid _grid;
 
           [TestInitialize]
           public void Init()
           {
-               _grid = new LeftTriangle();
+               _grid = new Grid();
           }
           [TestMethod]
           public void Test_EnumA()
@@ -33,9 +33,8 @@ namespace UnitTestProject1
           [TestMethod]
           public void Test_ColumnA()
           {
-               var grid = new LeftTriangle();
                var input = "A";
-               var result = grid.GetRowNumber(input);
+               var result = _grid.GetRowNumber(input);
                var expected = 1;
                Assert.AreEqual(expected, result);
           }
@@ -43,9 +42,8 @@ namespace UnitTestProject1
           [TestMethod]
           public void Test_ColumnD()
           {
-               var grid = new LeftTriangle();
                var input = "d";
-               var result = grid.GetRowNumber(input);
+               var result = _grid.GetRowNumber(input);
                var expected = 4;
                Assert.AreEqual(expected, result);
           }
@@ -58,7 +56,7 @@ namespace UnitTestProject1
                var row = "A";
                var column = 1;
 
-               var resultsTuple = GetCoordinates(row, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -83,7 +81,7 @@ namespace UnitTestProject1
                var row = "A";
                var column = 3;
 
-               var resultsTuple = GetCoordinates(row, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -108,7 +106,7 @@ namespace UnitTestProject1
                var row = "B";
                var column = 1;
 
-               var resultsTuple = GetCoordinates(row, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -133,7 +131,7 @@ namespace UnitTestProject1
                var row = "B";
                var column = 3;
 
-               var resultsTuple = GetCoordinates(row, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -158,7 +156,7 @@ namespace UnitTestProject1
                var row = "F";
                var column = 11;
 
-               var resultsTuple = GetCoordinates(row, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -183,13 +181,11 @@ namespace UnitTestProject1
                var row = "A";
                var column = 1;
                
-               var rowNumber = _grid.GetRowNumber(row);
-
-               var expectedResult = _grid.GetTopLeftOfTriangle(rowNumber, column);
+               var expectedResult = _grid.GetTriangle(row, column).Item1;
                Assert.AreEqual(expectedResult.X, 0);
 
                column = 3;
-               expectedResult = _grid.GetTopLeftOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item1;
                Assert.AreEqual(expectedResult.X, 10);
           }
 
@@ -198,13 +194,11 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 1;
-               var rowNumber = _grid.GetRowNumber(row);
-               var expectedResult = _grid.GetBottomLeftOfTriangle(rowNumber, column);
+               var expectedResult = _grid.GetTriangle(row, column).Item3;
                Assert.AreEqual(expectedResult.X, 0);
 
                row = "B";
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomLeftOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item3;
                Assert.AreEqual(expectedResult.X, 0);
           }
 
@@ -213,13 +207,11 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 1;
-               var rowNumber = _grid.GetRowNumber(row);
-               var expectedResult = _grid.GetBottomLeftOfTriangle(rowNumber, column);
+               var expectedResult = _grid.GetTriangle(row, column).Item3;
                Assert.AreEqual(expectedResult.Y, -10);
 
                row = "B";
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomLeftOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item3;
                Assert.AreEqual(expectedResult.Y, -20);
           }
 
@@ -228,27 +220,23 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 1;
-               var rowNumber = _grid.GetRowNumber(row);
-               var expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               var expectedResult = _grid.GetTriangle(row, column).Item2;
 
                Assert.AreEqual(expectedResult.Y, -10);
 
                row = "A";
                column = 3;
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item2;
                Assert.AreEqual(expectedResult.Y, -10);
 
                row = "B";
                column = 1;
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item2;
                Assert.AreEqual(expectedResult.Y, -20);
 
                row = "B";
                column = 3;
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item2;
                Assert.AreEqual(expectedResult.Y, -20);
           }
 
@@ -257,27 +245,23 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 1;
-               var rowNumber = _grid.GetRowNumber(row);
-               var expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               var expectedResult = _grid.GetTriangle(row, column).Item2;
 
                Assert.AreEqual(expectedResult.X, 10);
 
                row = "A";
                column = 3;
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item2;
                Assert.AreEqual(expectedResult.X, 20);
 
                row = "B";
                column = 1;
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item2;
                Assert.AreEqual(expectedResult.X, 10);
 
                row = "B";
                column = 3;
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetBottomRightOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item2;
                Assert.AreEqual(expectedResult.X, 20);
           }
 
@@ -286,19 +270,16 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 1;
-               var rowNumber = _grid.GetRowNumber(row);
 
-               var expectedResult = _grid.GetTopLeftOfTriangle(rowNumber, column);
+               var expectedResult = _grid.GetTriangle(row, column).Item1;
                Assert.AreEqual(expectedResult.Y, 0);
 
                row = "B";
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetTopLeftOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item1;
                Assert.AreEqual(expectedResult.Y, -10);
 
                row = "D";
-               rowNumber = _grid.GetRowNumber(row);
-               expectedResult = _grid.GetTopLeftOfTriangle(rowNumber, column);
+               expectedResult = _grid.GetTriangle(row, column).Item1;
                Assert.AreEqual(expectedResult.Y, -30);
           }
 
@@ -322,33 +303,33 @@ namespace UnitTestProject1
                Assert.AreEqual(edgeResult, expectedEdgeRemainder);
           }
 
-          public Tuple<Coordinate, Coordinate, Coordinate> GetCoordinates(string row, int column)
-          {
-               var numericalRow = _grid.GetRowNumber(row);
-               var remainderResult = column % 2;
-               if (remainderResult == 0)
-               {
-                    //even column
-                    throw  new NotImplementedException();
-               }
-               else
-               {
-                    //odd column
-                    var leftTriangleCoordinates = _grid.GetLeftTriangle(numericalRow, column);
-                    return leftTriangleCoordinates;
-               }  
-          }
+          //public Tuple<Coordinate, Coordinate, Coordinate> GetCoordinates(string row, int column)
+          //{
+          //     var numericalRow = _grid.GetRowNumber(row);
+          //     var remainderResult = column % 2;
+          //     if (remainderResult == 0)
+          //     {
+          //          //even column
+          //          throw  new NotImplementedException();
+          //     }
+          //     else
+          //     {
+          //          //odd column
+          //          var leftTriangleCoordinates = _grid.GetLeftTriangle(numericalRow, column);
+          //          return leftTriangleCoordinates;
+          //     }  
+          //}
      }
 
      [TestClass]
      public class UnitTests_RightTriangle
      {
-          private RightTriangle _grid;
+          private IGrid _grid;
 
           [TestInitialize]
           public void Init()
           {
-               _grid = new RightTriangle();
+               _grid = new Grid();
           }
     
           [TestMethod]
@@ -356,9 +337,8 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 2;
-               var rowInt = _grid.GetRowNumber(row);
 
-               var resultsTuple = _grid.GetRightTriangle(rowInt, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -382,9 +362,8 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 4;
-               var rowInt = _grid.GetRowNumber(row);
 
-               var resultsTuple = _grid.GetRightTriangle(rowInt, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -408,9 +387,8 @@ namespace UnitTestProject1
           {
                var row = "B";
                var column = 2;
-               var rowInt = _grid.GetRowNumber(row);
 
-               var resultsTuple = _grid.GetRightTriangle(rowInt, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -434,9 +412,8 @@ namespace UnitTestProject1
           {
                var row = "C";
                var column = 2;
-               var rowInt = _grid.GetRowNumber(row);
 
-               var resultsTuple = _grid.GetRightTriangle(rowInt, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -460,9 +437,8 @@ namespace UnitTestProject1
           {
                var row = "B";
                var column = 4;
-               var rowInt = _grid.GetRowNumber(row);
 
-               var resultsTuple = _grid.GetRightTriangle(rowInt, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -486,9 +462,8 @@ namespace UnitTestProject1
           {
                var row = "F";
                var column = 12;
-               var rowInt = _grid.GetRowNumber(row);
 
-               var resultsTuple = _grid.GetRightTriangle(rowInt, column);
+               var resultsTuple = _grid.GetTriangle(row, column);
                var actualTopLeft = resultsTuple.Item1;
                var actualBottomRight = resultsTuple.Item2;
                var actualBottomLeft = resultsTuple.Item3;
@@ -509,7 +484,13 @@ namespace UnitTestProject1
 
      }
 
-     public class Coordinate
+     public interface ICoordinate
+     {
+          int X { get; set; }
+          int Y { get; set; }
+     }
+
+     public class Coordinate : ICoordinate
      {
           public Coordinate(int x, int y)
           {
@@ -520,12 +501,39 @@ namespace UnitTestProject1
           public int Y { get; set; }
      }
 
-     public class LeftTriangle
+     public interface IGrid
      {
-          public Coordinate StartingPoint = new Coordinate(0, 0);
-          public int TriangleHeight = 10;
-          public int TriangleWidth = 10;
+          int GetRowNumber(string input);
+          Tuple<Coordinate, Coordinate, Coordinate> GetTriangle(string row, int column);
+          bool IsOdd(int value);
+     }
 
+     public class Grid : IGrid
+     {
+          public Tuple<Coordinate, Coordinate, Coordinate> GetTriangle(string row, int column)
+          {
+               var numericalRow = GetRowNumber(row);
+
+               if (IsOdd(column))
+               {
+                    LeftTriangle lt = new LeftTriangle();
+                    var topLeft = lt.GetTopLeftOfTriangle(numericalRow, column);
+                    var bottomRight = lt.GetBottomRightOfTriangle(numericalRow, column);
+                    var bottomLeft = lt.GetBottomLeftOfTriangle(numericalRow, column);
+
+                    return new Tuple<Coordinate, Coordinate, Coordinate>(topLeft, bottomRight, bottomLeft);
+
+               }
+               else
+               {
+                    RightTriangle rt = new RightTriangle();
+                    var topLeft = rt.GetTopLeftOfTriangle(numericalRow, column);
+                    var topRight = rt.GetTopRightOfTriangle(numericalRow, column);
+                    var bottomRight = rt.GetBottomRightOfTriangle(numericalRow, column);
+
+                    return new Tuple<Coordinate, Coordinate, Coordinate>(topLeft, topRight, bottomRight);
+               }
+          }
 
           public int GetRowNumber(string input)
           {
@@ -540,6 +548,16 @@ namespace UnitTestProject1
                     default: throw new Exception("Unknown column!");
                }
           }
+
+          public bool IsOdd(int value)
+          {
+               return value % 2 != 0;
+          }
+     }
+     public class LeftTriangle
+     {
+          public int TriangleHeight = 10;
+          public int TriangleWidth = 10;
 
           public Coordinate GetTopLeftOfTriangle(int numericalRow, int column)
           {
@@ -583,32 +601,12 @@ namespace UnitTestProject1
                return new Coordinate(x, y);
           }
 
-          public bool IsOdd(int value)
-          {
-               return value % 2 != 0;
-          }
      }
 
      public class RightTriangle
      {
-          public Coordinate StartingPoint = new Coordinate(0, 0);
           public int TriangleHeight = 10;
           public int TriangleWidth = 10;
-
-
-          public int GetRowNumber(string input)
-          {
-               switch (input.ToUpper())
-               {
-                    case "A": return (int)GridColumn.A;
-                    case "B": return (int)GridColumn.B;
-                    case "C": return (int)GridColumn.C;
-                    case "D": return (int)GridColumn.D;
-                    case "E": return (int)GridColumn.E;
-                    case "F": return (int)GridColumn.F;
-                    default: throw new Exception("Unknown column!");
-               }
-          }
 
         
           public Tuple<Coordinate, Coordinate, Coordinate> GetRightTriangle(int numericalRow, int column)
@@ -632,7 +630,7 @@ namespace UnitTestProject1
                return new Coordinate(x, y);
           }
 
-          private Coordinate GetTopRightOfTriangle(int numericalRow, int column)
+          public Coordinate GetTopRightOfTriangle(int numericalRow, int column)
           {
                int x;
                int y;
@@ -654,11 +652,6 @@ namespace UnitTestProject1
 
                return new Coordinate(x, y);
           }
-
-          public bool IsOdd(int value)
-          {
-               return value % 2 != 0;
-          }
      }
 
      [TestClass]
@@ -667,20 +660,18 @@ namespace UnitTestProject1
           [TestMethod]
           public void GetTriangleForCoordinates()
           {
-               //Dictionary<Tuple<Coordinate, Coordinate, Coordinate>, Tuple<string, int>> dic =
-               //     new Dictionary<Tuple<Coordinate, Coordinate, Coordinate>, Tuple<string, int>>();
                Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>> dic =
                     new Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>>();
 
                List<string> rows = new List<string>() { "A", "B", "C", "D", "E", "F" };
                List<int> columns = new List<int> { 1, 3,  5, 7, 9, 11};
                LeftTriangle lt = new LeftTriangle();
+               IGrid grid = new Grid();
                foreach(var r in rows)
                {
                     foreach(var c in columns)
                     {
-                         var intRow = lt.GetRowNumber(r);
-                         var results = lt.GetLeftTriangle(intRow, c);
+                         var results = grid.GetTriangle(r, c);
 
                          //create tuple here and add results along with R & C to that
                          var rcTuple = new Tuple<string, int>(r, c);

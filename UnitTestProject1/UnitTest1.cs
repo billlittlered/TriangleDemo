@@ -180,7 +180,7 @@ namespace UnitTestProject1
           {
                var row = "A";
                var column = 1;
-               
+
                var expectedResult = _grid.GetTriangle(row, column).Item1;
                Assert.AreEqual(expectedResult.X, 0);
 
@@ -303,22 +303,6 @@ namespace UnitTestProject1
                Assert.AreEqual(edgeResult, expectedEdgeRemainder);
           }
 
-          //public Tuple<Coordinate, Coordinate, Coordinate> GetCoordinates(string row, int column)
-          //{
-          //     var numericalRow = _grid.GetRowNumber(row);
-          //     var remainderResult = column % 2;
-          //     if (remainderResult == 0)
-          //     {
-          //          //even column
-          //          throw  new NotImplementedException();
-          //     }
-          //     else
-          //     {
-          //          //odd column
-          //          var leftTriangleCoordinates = _grid.GetLeftTriangle(numericalRow, column);
-          //          return leftTriangleCoordinates;
-          //     }  
-          //}
      }
 
      [TestClass]
@@ -331,7 +315,7 @@ namespace UnitTestProject1
           {
                _grid = new Grid();
           }
-    
+
           [TestMethod]
           public void Test_CheckAllTriangleCoordinates_A2()
           {
@@ -554,18 +538,21 @@ namespace UnitTestProject1
                return value % 2 != 0;
           }
      }
+
+     public static class Constants
+     {
+          public static int TriangleHeight = 10;
+          public static int TriangleWidth = 10;
+     }
      public class LeftTriangle
      {
-          public int TriangleHeight = 10;
-          public int TriangleWidth = 10;
-
           public Coordinate GetTopLeftOfTriangle(int numericalRow, int column)
           {
                var tmpColumn = column - 1;
 
                int x, y;
 
-               x = (tmpColumn / 2) * TriangleWidth;
+               x = (tmpColumn / 2) * Constants.TriangleWidth;
 
                y = ((numericalRow * 10) - 10) * -1;
 
@@ -605,10 +592,6 @@ namespace UnitTestProject1
 
      public class RightTriangle
      {
-          public int TriangleHeight = 10;
-          public int TriangleWidth = 10;
-
-        
           public Tuple<Coordinate, Coordinate, Coordinate> GetRightTriangle(int numericalRow, int column)
           {
                var topLeft = GetTopLeftOfTriangle(numericalRow, column);
@@ -646,7 +629,7 @@ namespace UnitTestProject1
 
                int x, y;
 
-               x = (tmpColumn / 2) * TriangleWidth;
+               x = (tmpColumn / 2) * Constants.TriangleWidth;
 
                y = ((numericalRow * 10) - 10) * -1;
 

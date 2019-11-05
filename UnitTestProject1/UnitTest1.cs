@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestProject1
@@ -657,6 +658,75 @@ namespace UnitTestProject1
           public bool IsOdd(int value)
           {
                return value % 2 != 0;
+          }
+     }
+
+     [TestClass]
+     public class UnitTests_Triangle
+     {
+          [TestMethod]
+          public void GetTriangleForCoordinates()
+          {
+               //Dictionary<Tuple<Coordinate, Coordinate, Coordinate>, Tuple<string, int>> dic =
+               //     new Dictionary<Tuple<Coordinate, Coordinate, Coordinate>, Tuple<string, int>>();
+               Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>> dic =
+                    new Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>>();
+
+               List<string> rows = new List<string>() { "A", "B", "C", "D", "E", "F" };
+               List<int> columns = new List<int> { 1, 3,  5, 7, 9, 11};
+               LeftTriangle lt = new LeftTriangle();
+               foreach(var r in rows)
+               {
+                    foreach(var c in columns)
+                    {
+                         var intRow = lt.GetRowNumber(r);
+                         var results = lt.GetLeftTriangle(intRow, c);
+
+                         //create tuple here and add results along with R & C to that
+                         var rcTuple = new Tuple<string, int>(r, c);
+                         var topLeftCoordinate = new Coordinate(results.Item1.X, results.Item1.Y);
+                         var bottomRightCoordinate = new Coordinate(results.Item2.X, results.Item2.Y);
+                         var bottomLeftCoordinate = new Coordinate(results.Item3.X, results.Item3.Y);
+                         var coordinateTuple = 
+                              new Tuple<Coordinate, Coordinate, Coordinate>(topLeftCoordinate, bottomRightCoordinate, bottomLeftCoordinate);
+
+                         var tmpTuple = new Tuple<int, int, int, int, int, int>(topLeftCoordinate.X, topLeftCoordinate.Y,
+                              bottomRightCoordinate.X, bottomRightCoordinate.Y, bottomLeftCoordinate.X, bottomLeftCoordinate.Y);
+                         dic.Add(tmpTuple, rcTuple);
+                    }
+                    
+               }
+
+               var testTopLeft1 = new Coordinate(0, 0);
+               var testBottomRight1 = new Coordinate(10, -10);
+               var testBottomLeft1 = new Coordinate(0, -10);
+               var testInput1 = new Tuple<int, int, int, int, int, int>(testTopLeft1.X, testTopLeft1.Y, testBottomRight1.X,
+                    testBottomRight1.Y, testBottomLeft1.X, testBottomLeft1.Y);
+               var triangleCoordinates = dic.GetValueOrDefault(testInput1);
+               var resultingRow = triangleCoordinates.Item1;
+               var resultingColumn = triangleCoordinates.Item2;
+
+
+               Assert.AreEqual("A", resultingRow);
+               Assert.AreEqual(1, resultingColumn);
+
+
+
+
+
+               testTopLeft1 = new Coordinate(40, -50);
+               testBottomRight1 = new Coordinate(50, -60);
+               testBottomLeft1 = new Coordinate(40, -60);
+               testInput1 = new Tuple<int, int, int, int, int, int>(testTopLeft1.X, testTopLeft1.Y, testBottomRight1.X,
+                    testBottomRight1.Y, testBottomLeft1.X, testBottomLeft1.Y);
+               triangleCoordinates = dic.GetValueOrDefault(testInput1);
+               resultingRow = triangleCoordinates.Item1;
+               resultingColumn = triangleCoordinates.Item2;
+
+
+               Assert.AreEqual("F", resultingRow);
+               Assert.AreEqual(9, resultingColumn);
+
           }
      }
 

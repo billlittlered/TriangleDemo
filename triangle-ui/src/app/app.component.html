@@ -52,12 +52,14 @@
         <form [formGroup]="rowColumnForm">
             <label>
               Row:
-              <input type='text' formControlName='row' required>
+              <input type='text' id='row' class='form-control'  formControlName='row'  maxlength=1>
+              <p class='error' *ngIf="!!row?.errors?.required">Row is required.</p>
             </label>
             <br />
             <label>
             Column #:
               <input type='text' formControlName='column' required>
+              <p class='error' *ngIf="!!column?.errors?.required">Column is required.</p>
             </label>
             <br />
             <button (click)="getCoordinates()">Get Coordinates</button>
@@ -67,24 +69,27 @@
                 <b>(Top Left) - (Bottom Right) - (Bottom Left)</b>
                 <br />
                 <b>{{coordinates}}</b>
-              </div>
+            </div>
         </form>
       </div>
       <div class="rightForm">
         <form [formGroup]="coordinatesForm">
           <label>
             Top Left Coordinates:
-            <input type='text' formControlName='topLeft' required>
+            <input type='text' class='form-control' formControlName='topLeft' required>
+            <p class='error' *ngIf="!!topLeft?.errors?.required">Top Left Coordinate is required.</p>
           </label>
           <br />
           <label>
             Bottom Right Coordinates:
-            <input type='text' formControlName='bottomRight' required>
+            <input type='text' class='form-control'  formControlName='bottomRight'>
+            <p class='error' *ngIf="!!bottomRight?.errors?.required">Bottom Right Coordinate is required.</p>
           </label>
           <br />
           <label>
             Bottom Left Coordinates:
-            <input type='text' formControlName='bottomLeft' required>
+            <input type='text' class='form-control'  formControlName='bottomLeft' >
+            <p class='error' *ngIf="!!bottomLeft?.errors?.required">Bottom Left Coordinate is required.</p>
           </label>
           <br />
           <button (click)="getTriangle()">Get Triangle</button>

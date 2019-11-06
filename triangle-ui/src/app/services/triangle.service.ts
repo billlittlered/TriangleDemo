@@ -14,7 +14,7 @@ export class TriangleService {
     return this.http.get<string>(`${Constants.ApiBaseUrl}/GetCoordinates/${row}/${column}`, { responseType: 'text' })
       .pipe(
         map(res => res),
-        catchError(error => throwError(error.message || error))
+        catchError(error => error.message)
       );
   }
 
@@ -22,7 +22,7 @@ export class TriangleService {
     return this.http.get<string>(`${Constants.ApiBaseUrl}/GetTriangle/${coordinates}`, { responseType: 'text' })
       .pipe(
         map(res => res),
-        catchError(error => throwError(error.message || error))
+        catchError(error => error.message)
       );
   }
 

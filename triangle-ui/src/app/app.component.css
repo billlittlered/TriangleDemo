@@ -287,3 +287,7 @@
   .rightForm {
     padding-left: 30px;
   }
+
+  .error {
+    color: red;
+  }

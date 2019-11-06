@@ -32,6 +32,9 @@ namespace TriangleWebApi.Controllers
           public ActionResult<string> GetCoordinates(string row, int column)
           {
                var results = _grid.GetTriangle(row, column);
+               if (results == null)
+                    return "Oops...Most likely you entered an invalid row/column combination. Please try again.";
+
                var coord1 = $"({results.Item1.X},{results.Item1.Y})";
                var coord2 = $"({results.Item2.X},{results.Item2.Y})";
                var coord3 = $"({results.Item3.X},{results.Item3.Y})";
@@ -42,20 +45,28 @@ namespace TriangleWebApi.Controllers
           [HttpGet("GetTriangle/{coordinates}")]
           public ActionResult<string> GetTriangle(string coordinates)
           {
-               var groups = coordinates.Split('=');
-               var topLeftX = groups[0].Split(',')[0];
-               var topLeftY = groups[0].Split(',')[1];
-               var bottomRightX = groups[1].Split(',')[0];
-               var bottomRightY = groups[1].Split(',')[1];
-               var bottomLeftX = groups[2].Split(',')[0];
-               var bottomLeftY = groups[2].Split(',')[1];
+               try
+               {
+                    var groups = coordinates.Split('=');
+                    var topLeftX = groups[0].Split(',')[0];
+                    var topLeftY = groups[0].Split(',')[1];
+                    var bottomRightX = groups[1].Split(',')[0];
+                    var bottomRightY = groups[1].Split(',')[1];
+                    var bottomLeftX = groups[2].Split(',')[0];
+                    var bottomLeftY = groups[2].Split(',')[1];
 
-               var topLeft = new Coordinate(Convert.ToInt32(topLeftX), Convert.ToInt32(topLeftY));
-               var bottomRight = new Coordinate(Convert.ToInt32(bottomRightX), Convert.ToInt32(bottomRightY));
-               var bottomLeft = new Coordinate(Convert.ToInt32(bottomLeftX), Convert.ToInt32(bottomLeftY));
+                    var topLeft = new Coordinate(Convert.ToInt32(topLeftX), Convert.ToInt32(topLeftY));
+                    var bottomRight = new Coordinate(Convert.ToInt32(bottomRightX), Convert.ToInt32(bottomRightY));
+                    var bottomLeft = new Coordinate(Convert.ToInt32(bottomLeftX), Convert.ToInt32(bottomLeftY));
 
-               var triangleLocation = _grid.GetTriangleFromCoordinates(topLeft, bottomRight, bottomLeft);
-               return triangleLocation;
+                    var triangleLocation = _grid.GetTriangleFromCoordinates(topLeft, bottomRight, bottomLeft);
+                    return triangleLocation == null ? "Oops...Most likely you entered invalid coordinates. Please try again." : (ActionResult<string>)triangleLocation;
+               }
+               catch (Exception ex)
+               {
+                    return "Most likely you entered coordinates improperly formatted. Please try again.";
+               }
+               
           }
 
      }

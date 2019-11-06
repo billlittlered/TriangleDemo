@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json.Serialization;
 
 namespace TriangleWebApi
 {
@@ -34,10 +35,10 @@ namespace TriangleWebApi
                                             .AllowCredentials()
                                             .AllowAnyHeader());
                });
-               services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+               services.AddMvc()
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                    .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
                services.AddSingleton<IGrid, Grid>();
-               services.AddSingleton<ILeftTriangle, LeftTriangle>();
-               services.AddSingleton<IRightTriangle, RightTriangle>();
                services.AddSingleton<ICoordinate, Coordinate>();
           }
 

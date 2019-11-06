@@ -62,11 +62,33 @@
           <button (click)="getCoordinates()">Get Coordinates</button>
       </form>
 
+      <form [formGroup]="coordinatesForm">
+          <label>
+            Top Left Coordinates:
+            <input type='text' formControlName='topLeft' required>
+          </label>
+          <br />
+          <label>
+            Bottom Right Coordinates:
+            <input type='text' formControlName='bottomRight' required>
+          </label>
+          <br />
+          <label>
+            Bottom Left Coordinates:
+            <input type='text' formControlName='bottomLeft' required>
+          </label>
+          <br />
+          <button (click)="getTriangle()">Get Triangle</button>
+      </form>
+
     <br />
     <div>
       Here are the coordinates:
       <br />
       {{coordinates}}
+    </div>
+    <div>
+      Here is the requested triangle: {{rowColumn}}
     </div>
   </div>
 

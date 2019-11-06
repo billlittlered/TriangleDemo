@@ -44,25 +44,32 @@
 
 
   <!-- Resources -->
-  <h2>Resources</h2>
-  <p>Here are some links to help you get started:</p>
+  <h2>Triangle Demo Instructions</h2>
+  <p>Please enter a desired row/column combination to get the desired coordinates OR enter the coordinates to get a triangle:</p>
 
   <div class="card-container">
-      <form [formGroup]="rowColumnForm">
-          <label>
-            Row:
-            <input type='text' formControlName='row' required>
-          </label>
-          <br />
-          <label>
-           Column #:
-            <input type='text' formControlName='column' required>
-          </label>
-          <br />
-          <button (click)="getCoordinates()">Get Coordinates</button>
-      </form>
-
-      <form [formGroup]="coordinatesForm">
+      <div>
+        <form [formGroup]="rowColumnForm">
+            <label>
+              Row:
+              <input type='text' formControlName='row' required>
+            </label>
+            <br />
+            <label>
+            Column #:
+              <input type='text' formControlName='column' required>
+            </label>
+            <br />
+            <button (click)="getCoordinates()">Get Coordinates</button>
+            <div>
+                Here are the coordinates:
+                <br />
+                <b>{{coordinates}}</b>
+              </div>
+        </form>
+      </div>
+      <div class="rightForm">
+        <form [formGroup]="coordinatesForm">
           <label>
             Top Left Coordinates:
             <input type='text' formControlName='topLeft' required>
@@ -79,23 +86,14 @@
           </label>
           <br />
           <button (click)="getTriangle()">Get Triangle</button>
-      </form>
-
+          <br />
+          <div>
+            Here is the requested triangle: <b>{{rowColumn}}</b>
+          </div>
+        </form>
+      </div>
     <br />
-    <div>
-      Here are the coordinates:
-      <br />
-      {{coordinates}}
-    </div>
-    <div>
-      Here is the requested triangle: {{rowColumn}}
-    </div>
   </div>
-
-
-
-
-
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

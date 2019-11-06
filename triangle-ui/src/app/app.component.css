@@ -283,3 +283,7 @@
       visibility: hidden;
     }
   }
+
+  .rightForm {
+    padding-left: 30px;
+  }

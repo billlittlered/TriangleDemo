@@ -7,7 +7,6 @@ namespace GridLibrary.Implementations
 {
      public class Grid : IGrid
      {
-
           public Tuple<ICoordinate, ICoordinate, ICoordinate> GetTriangle(string row, int column)
           {
                try

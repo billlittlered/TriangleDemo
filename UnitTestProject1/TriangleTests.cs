@@ -11,12 +11,12 @@ namespace UnitTestProject1
      [TestClass]
      public class TriangleTests
      {
-          [TestMethod]
-          public void GetTriangleForCoordinates()
-          {
-               Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>> dic =
+          Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>> dic =
                     new Dictionary<Tuple<int, int, int, int, int, int>, Tuple<string, int>>();
 
+          [TestInitialize]
+          public void Init()
+          {
                List<string> rows = new List<string>() { "A", "B", "C", "D", "E", "F" };
                List<int> columns = new List<int> { 1, 3, 5, 7, 9, 11 };
                LeftTriangle lt = new LeftTriangle();
@@ -41,37 +41,57 @@ namespace UnitTestProject1
                     }
 
                }
+          }
 
+
+          [TestMethod]
+          public void GetTriangleForCoordinates_ShouldResultIn_A1()
+          {
                var testTopLeft1 = new Coordinate(0, 0);
                var testBottomRight1 = new Coordinate(10, -10);
                var testBottomLeft1 = new Coordinate(0, -10);
                var testInput1 = new Tuple<int, int, int, int, int, int>(testTopLeft1.X, testTopLeft1.Y, testBottomRight1.X,
                     testBottomRight1.Y, testBottomLeft1.X, testBottomLeft1.Y);
                var triangleCoordinates = dic.GetValueOrDefault(testInput1);
-               var resultingRow = triangleCoordinates.Item1;
-               var resultingColumn = triangleCoordinates.Item2;
+               var resultingRow = triangleCoordinates?.Item1;
+               var resultingColumn = triangleCoordinates?.Item2;
 
 
                Assert.AreEqual("A", resultingRow);
                Assert.AreEqual(1, resultingColumn);
+          }
 
-
-
-
-
-               testTopLeft1 = new Coordinate(40, -50);
-               testBottomRight1 = new Coordinate(50, -60);
-               testBottomLeft1 = new Coordinate(40, -60);
-               testInput1 = new Tuple<int, int, int, int, int, int>(testTopLeft1.X, testTopLeft1.Y, testBottomRight1.X,
+          [TestMethod]
+          public void GetTriangleForCoordinates_ShouldResultIn_F9()
+          {
+               var testTopLeft1 = new Coordinate(40, -50);
+               var testBottomRight1 = new Coordinate(50, -60);
+               var testBottomLeft1 = new Coordinate(40, -60);
+               var testInput1 = new Tuple<int, int, int, int, int, int>(testTopLeft1.X, testTopLeft1.Y, testBottomRight1.X,
                     testBottomRight1.Y, testBottomLeft1.X, testBottomLeft1.Y);
-               triangleCoordinates = dic.GetValueOrDefault(testInput1);
-               resultingRow = triangleCoordinates.Item1;
-               resultingColumn = triangleCoordinates.Item2;
+               var triangleCoordinates = dic.GetValueOrDefault(testInput1);
+               var resultingRow = triangleCoordinates?.Item1;
+               var resultingColumn = triangleCoordinates?.Item2;
 
 
                Assert.AreEqual("F", resultingRow);
                Assert.AreEqual(9, resultingColumn);
+          }
 
+          [TestMethod]
+          public void GetTriangleForCoordinates_ShouldResultIn_NULL()
+          {
+               var testTopLeft1 = new Coordinate(90, -50); //This coordinate intentionally does not exist.
+               var testBottomRight1 = new Coordinate(50, -60);
+               var testBottomLeft1 = new Coordinate(40, -60);
+               var testInput1 = new Tuple<int, int, int, int, int, int>(testTopLeft1.X, testTopLeft1.Y, testBottomRight1.X,
+                    testBottomRight1.Y, testBottomLeft1.X, testBottomLeft1.Y);
+               var triangleCoordinates = dic.GetValueOrDefault(testInput1);
+               var resultingRow = triangleCoordinates?.Item1;
+               var resultingColumn = triangleCoordinates?.Item2;
+
+               Assert.AreEqual(resultingRow, null);
+               Assert.AreEqual(resultingColumn, null);
           }
      }
 }

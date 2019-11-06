@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using GridLibrary;
 using GridLibrary.Implementations;
 using GridLibrary.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -33,7 +34,7 @@ namespace TriangleWebApi.Controllers
           {
                var results = _grid.GetTriangle(row, column);
                if (results == null)
-                    return "Oops...Most likely you entered an invalid row/column combination. Please try again.";
+                    return Constants.GetCoordinates_BadInput;
 
                var coord1 = $"({results.Item1.X},{results.Item1.Y})";
                var coord2 = $"({results.Item2.X},{results.Item2.Y})";
@@ -60,11 +61,11 @@ namespace TriangleWebApi.Controllers
                     var bottomLeft = new Coordinate(Convert.ToInt32(bottomLeftX), Convert.ToInt32(bottomLeftY));
 
                     var triangleLocation = _grid.GetTriangleFromCoordinates(topLeft, bottomRight, bottomLeft);
-                    return triangleLocation == null ? "Oops...Most likely you entered invalid coordinates. Please try again." : (ActionResult<string>)triangleLocation;
+                    return triangleLocation == null ? Constants.GetTriangle_InvalidInput : (ActionResult<string>)triangleLocation;
                }
                catch (Exception ex)
                {
-                    return "Most likely you entered coordinates improperly formatted. Please try again.";
+                    return Constants.GetTriangle_BadlyFormattedInputed;
                }
                
           }

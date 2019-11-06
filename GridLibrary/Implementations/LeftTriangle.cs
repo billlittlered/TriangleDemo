@@ -11,11 +11,8 @@ namespace GridLibrary.Implementations
           {
                var tmpColumn = column - 1;
 
-               int x, y;
-
-               x = (tmpColumn / 2) * Constants.TriangleWidth;
-
-               y = ((numericalRow * 10) - 10) * -1;
+               var x = (tmpColumn / 2) * Constants.TriangleWidth;
+               var y = ((numericalRow * 10) - 10) * -1;
 
                return new Coordinate(x, y);
           }
@@ -31,20 +28,16 @@ namespace GridLibrary.Implementations
 
           public ICoordinate GetBottomLeftOfTriangle(int rowNumber, int column)
           {
-               int x, y;
-
-               x = ((column - 1) / 2) * 10;
-               y = (rowNumber * -10);
+               var x = ((column - 1) / 2) * 10;
+               var y = (rowNumber * -10);
 
                return new Coordinate(x, y);
           }
 
           public ICoordinate GetBottomRightOfTriangle(int rowNumber, int column)
           {
-               int x, y;
-
-               x = (((column - 1) / 2) * 10) + 10;
-               y = (rowNumber * -10);
+               var x = (((column - 1) / 2) * 10) + 10;
+               var y = (rowNumber * -10);
 
                return new Coordinate(x, y);
           }

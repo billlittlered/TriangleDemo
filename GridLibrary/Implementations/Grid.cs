@@ -15,7 +15,7 @@ namespace GridLibrary.Implementations
 
                     if (IsOdd(column))
                     {
-                         LeftTriangle lt = new LeftTriangle();
+                         ILeftTriangle lt = new LeftTriangle();
                          var topLeft = lt.GetTopLeftOfTriangle(numericalRow, column);
                          var bottomRight = lt.GetBottomRightOfTriangle(numericalRow, column);
                          var bottomLeft = lt.GetBottomLeftOfTriangle(numericalRow, column);

@@ -291,3 +291,7 @@
   .error {
     color: red;
   }
+
+  .bottomForm {
+    padding-top: 40px;
+  }

@@ -44,35 +44,37 @@
 
 
   <!-- Resources -->
-  <h2>Triangle Demo Instructions</h2>
-  <p>Please enter a desired row/column combination to get the desired coordinates OR enter the coordinates to get a triangle:</p>
+  <div>
 
-  <div class="card-container">
       <div>
+        <h2>Instructions</h2>
+        <p>Please enter a desired row/column combination to get the desired coordinates</p>
         <form [formGroup]="rowColumnForm">
-            <label>
-              Row:
-              <input type='text' id='row' class='form-control'  formControlName='row'  maxlength=1>
-              <p class='error' *ngIf="!!row?.errors?.required">Row is required.</p>
-            </label>
-            <br />
-            <label>
-            Column #:
-              <input type='text' formControlName='column' required>
-              <p class='error' *ngIf="!!column?.errors?.required">Column is required.</p>
-            </label>
-            <br />
-            <button (click)="getCoordinates()">Get Coordinates</button>
-            <div>
-                Here are the coordinates (clockwise from top left most point):
-                <br />
-                <b>(Top Left) - (Bottom Right) - (Bottom Left)</b>
-                <br />
-                <b>{{coordinates}}</b>
-            </div>
+          <label>
+            Row:
+            <input type='text' id='row' class='form-control'  formControlName='row'  maxlength=1>
+            <p class='error' *ngIf="!!row?.errors?.required">Row is required.</p>
+          </label>
+          <br />
+          <label>
+          Column #:
+            <input type='text' formControlName='column' required>
+            <p class='error' *ngIf="!!column?.errors?.required">Column is required.</p>
+          </label>
+          <br />
+          <button (click)="getCoordinates()">Get Coordinates</button>
+          <div>
+              Here are the coordinates (clockwise from top left most point):
+              <br />
+              <b>(Top Left) - (Bottom Right) - (Bottom Left)</b>
+              <br />
+              <b>{{coordinates}}</b>
+          </div>
         </form>
       </div>
-      <div class="rightForm">
+      <div class="bottomForm">
+        <h2>Instructions:</h2>
+        <p>Enter the coordinates to get a triangle:</p>
         <form [formGroup]="coordinatesForm">
           <label>
             Top Left Coordinates:

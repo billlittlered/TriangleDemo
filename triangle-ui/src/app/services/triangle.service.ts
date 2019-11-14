@@ -11,19 +11,13 @@ export class TriangleService {
   }
 
   public getCoordinates(row: string, column: number): Observable<string> {
-    return this.http.get<string>(`${Constants.ApiBaseUrl}/GetCoordinates/${row}/${column}`, { responseType: 'text' })
-      .pipe(
-        map(res => res),
-        catchError(error => error.message)
-      );
+    return this.http.get(`${Constants.ApiBaseUrl}/GetCoordinates/${row}/${column}`, { responseType: 'text'})
+      .pipe((res: any) => res);
   }
 
   public getTriangle(coordinates: string): Observable<string> {
-    return this.http.get<string>(`${Constants.ApiBaseUrl}/GetTriangle/${coordinates}`, { responseType: 'text' })
-      .pipe(
-        map(res => res),
-        catchError(error => error.message)
-      );
+    return this.http.get(`${Constants.ApiBaseUrl}/GetTriangle/${coordinates}`, { responseType: 'text'})
+      .pipe((res: any) => res);
   }
 
 }

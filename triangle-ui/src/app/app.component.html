@@ -41,13 +41,11 @@
 </div>
 
 <div class="content" role="main">
-
-
   <!-- Resources -->
   <div>
 
       <div>
-        <h2>Instructions</h2>
+        <h2>Instructions</h2><span class="error">{{coordinatesMessage}}</span>
         <p>Please enter a desired row/column combination to get the desired coordinates</p>
         <form [formGroup]="rowColumnForm">
           <label>
@@ -58,8 +56,9 @@
           <br />
           <label>
           Column #:
-            <input type='text' formControlName='column' required>
+            <input type='text' formControlName='column' required max="12">
             <p class='error' *ngIf="!!column?.errors?.required">Column is required.</p>
+            <p class='error' *ngIf="!!column?.errors?.max">Column max value is 12.</p>
           </label>
           <br />
           <button (click)="getCoordinates()">Get Coordinates</button>
@@ -74,7 +73,7 @@
       </div>
       <div class="bottomForm">
         <h2>Instructions:</h2>
-        <p>Enter the coordinates to get a triangle:</p>
+        <p>Enter the coordinates to get a triangle:&nbsp;<span class="error">{{triangleMessage}}</span></p>
         <form [formGroup]="coordinatesForm">
           <label>
             Top Left Coordinates:

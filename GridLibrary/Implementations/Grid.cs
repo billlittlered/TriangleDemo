@@ -11,6 +11,9 @@ namespace GridLibrary.Implementations
           {
                try
                {
+                    if (column > 12) return null;
+
+
                     var numericalRow = GetRowNumber(row);
 
                     if (IsOdd(column))

@@ -180,6 +180,32 @@ namespace UnitTestProject1
           }
 
           [TestMethod]
+          public void Test_CheckAllTriangleCoordinates_F22()
+          {
+               var row = "F";
+               var column = 22;
+
+               var resultsTuple = _grid.GetTriangle(row, column);
+               Assert.AreEqual(resultsTuple, null);
+               //var actualTopLeft = resultsTuple.Item1;
+               //var actualBottomRight = resultsTuple.Item2;
+               //var actualBottomLeft = resultsTuple.Item3;
+
+               //var expectedTopLeft = new Coordinate(50, -50);
+               //var expectedBottomRight = new Coordinate(60, -60);
+               //var expectedBottomLeft = new Coordinate(50, -60);
+
+               //Assert.AreEqual(expectedTopLeft.X, actualTopLeft.X);
+               //Assert.AreEqual(expectedTopLeft.Y, actualTopLeft.Y);
+
+               //Assert.AreEqual(expectedBottomRight.X, actualBottomRight.X);
+               //Assert.AreEqual(expectedBottomRight.Y, actualBottomRight.Y);
+
+               //Assert.AreEqual(expectedBottomLeft.X, actualBottomLeft.X);
+               //Assert.AreEqual(expectedBottomLeft.Y, actualBottomLeft.Y);
+          }
+
+          [TestMethod]
           public void Test_LeftTriangle_TopLeftXCoordinate()
           {
                var row = "A";
